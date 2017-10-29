@@ -16,6 +16,7 @@ module Scarpers
       return {} if auctioneer_company_data.nil? || auctioneer_contact_data.nil?
 
       {}.tap { |hash_data|
+        hash_data.merge!(company_nick_for(document_data))
         hash_data.merge!(company_data_from(auctioneer_company_data))
         hash_data.merge!(contact_data_from(auctioneer_contact_data))
       }
@@ -24,6 +25,14 @@ module Scarpers
     private
 
     attr_reader :auctioneer_id
+
+    def company_nick_for(document_data)
+      {
+        nick: sanitizer_html_from(
+          document_data.at_css('.main-title .uname').try(:children)
+        )
+      }
+    end
 
     def company_data_from(auctioneer_company_data)
       {
