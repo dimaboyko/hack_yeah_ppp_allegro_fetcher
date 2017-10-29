@@ -12,12 +12,13 @@ module External
         auctions.each do |auction_data|
           auctioneer_data = ::Scarpers::Auctioneer.perform(auction_data['userId'])
           auction_data = ::Scarpers::Auction.perform(auction_data['itemId'])
+          krs_data = ::Scarpers::Krs.perform(auctioneer_data['company_nip'])
 
           hack_yeah_app_client.create_auction(
             {
               auctioneer_id: auction_data['userId'],
               auction_id: auction_data['itemId'],
-              auctioneer_data: auctioneer_data,
+              auctioneer_data: auctioneer_data.merge(krs_data),
               auction_data: auction_data,
               auction_provider: PROVIDER
             }
