@@ -1,4 +1,4 @@
 test_job:
-  cron: "1 * * * *"
-  class: "TestWorker"
+  cron: "60 * * * *"
+  class: "FetcherWorker"
   queue: default
