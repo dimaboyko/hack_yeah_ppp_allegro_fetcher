@@ -9,6 +9,9 @@ heroku ps:exec
 ### consola rails:
 heroku run rails console
 
+### task:
+::External::Allegro::Fetcher.perform
+
 ### deploy:
 git push heroku master
 
