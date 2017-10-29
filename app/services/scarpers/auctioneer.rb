@@ -38,13 +38,13 @@ module Scarpers
         ),
         company_nip: sanitizer_html_from(
           auctioneer_company_data.at_css('div.seller-user-nip').try(:children)
-        ),
+        ).gsub(/[^0-9]/, ''),
         company_regon: sanitizer_html_from(
           auctioneer_company_data.at_css('div.seller-user-regon').try(:children)
-        ),
+        ).gsub(/[^0-9]/, ''),
         company_krs: sanitizer_html_from(
           auctioneer_company_data.at_css('div.seller-user-krs').try(:children)
-        )
+        ).gsub(/[^0-9]/, '')
       }
     end
 
