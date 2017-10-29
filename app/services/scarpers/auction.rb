@@ -37,8 +37,6 @@ module Scarpers
 
       parameters_data[:title] = document_data.at_css('h1.title').try(:children).first
 
-      parameters_data[:description] = document_data.at_css('#description').to_s
-
       # sciezka kategorii w postaci tablicy
       # parameters_data[:category_tree] = document_data.at_css('ol#breadcrumbs-list').map(&:children).map(&:to_s)
 
