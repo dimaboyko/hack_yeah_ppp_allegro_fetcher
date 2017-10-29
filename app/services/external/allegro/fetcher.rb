@@ -10,11 +10,18 @@ module External
         return if auctions.nil?
 
         auctions.each do |auction_data|
-          hack_yeah_app_client.create_auction({
-            auctioneer_id: auction_data['userId'],
-            auction_id: auction_data['itemId'],
-            auction_provider: PROVIDER,
-          })
+          auctioneer_data = ::Scarpers::Auctioneer.perform(auction_data['userId'])
+          auction_data = ::Scarpers::Auction.perform(auction_data['itemId'])
+
+          hack_yeah_app_client.create_auction(
+            {
+              auctioneer_id: auction_data['userId'],
+              auction_id: auction_data['itemId'],
+              auctioneer_data: auctioneer_data,
+              auction_data: auction_data,
+              auction_provider: PROVIDER
+            }
+          )
         end
       end
 
