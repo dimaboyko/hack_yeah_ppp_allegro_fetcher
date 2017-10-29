@@ -6,7 +6,8 @@ module External
     class Client
       include Singleton
 
-      APPLICATION_URL = 'http://localhost:3000'
+      APPLICATION_URL =
+        Rails.env.production? ? 'http://hackyeahppp.herokuapp.com/' : 'http://localhost:3000'
 
       def create_auction(auction_params)
         post('api/v1/auctions', auction_params)
