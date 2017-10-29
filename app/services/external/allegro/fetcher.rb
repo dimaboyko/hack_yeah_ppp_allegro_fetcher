@@ -17,7 +17,7 @@ module External
           hack_yeah_app_client.create_auction(
             {
               auctioneer_id: auction_data[:auctioneer_id],
-              auction_id: auction_data['itemId'],
+              auction_id: auction['itemId'],
               auctioneer_data: auctioneer_data.merge(krs_data),
               auction_data: auction_data[:auction_data],
               auction_provider: PROVIDER
