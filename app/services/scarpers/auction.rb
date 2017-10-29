@@ -7,7 +7,7 @@ module Scarpers
     end
 
     def perform
-      return {} if auction_id.nil?
+      return {} if auction_id.nil? || document_data.nil?
 
       auctioneer_id = nil
       parameters_data = Hash.new
@@ -60,6 +60,8 @@ module Scarpers
 
     def document_data
       @document_data ||= client.fetch_auction_data(auction_id)
+    rescue ::External::AllegroWeb::RequestFailed
+      nil
     end
 
     def sanitizer_html_from(data)
