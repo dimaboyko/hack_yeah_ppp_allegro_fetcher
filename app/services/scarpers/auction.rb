@@ -10,6 +10,8 @@ module Scarpers
       return {} if auction_id.nil?
 
       auctioneer_id = nil
+      parameters_data = Hash.new
+
       document_data.xpath("//a").each do |link|
         if link && link.attributes
           value = link.attributes["href"].try(:value)
@@ -23,9 +25,6 @@ module Scarpers
       return {} if parameters_section.nil?
 
       parameters_groups = parameters_section.css('ul.offer-attributes')
-
-      parameters_data = Hash.new
-
       parameters_groups.each do |group|
         unless group.children.nil?
           group.children.css('li').each do |item|
@@ -36,19 +35,12 @@ module Scarpers
         end
       end
 
-      # tytul
+      parameters_data[:title] = document_data.at_css('h1.title').try(:children).first
 
-      # -> opis -> nice to have
-
-      # czy to kup teraz -> sprawdz na innej aukcji
+      parameters_data[:description] = document_data.at_css('#description').to_s
 
       # sciezka kategorii w postaci tablicy
-
-      # dane firmy
-
-      # nick allegro
-
-      # czy jest firmą? true / false
+      # parameters_data[:category_tree] = document_data.at_css('ol#breadcrumbs-list').map(&:children).map(&:to_s)
 
       # liczba opini o koncie
 
@@ -67,7 +59,7 @@ module Scarpers
     end
 
     def sanitizer_html_from(data)
-      ActionView::Base.full_sanitizer.sanitize(data.to_s).gsub(/[^0-9a-zA-Z]/, '')
+      ActionView::Base.full_sanitizer.sanitize(data.to_s.strip)
     end
 
     def client
