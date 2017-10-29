@@ -1,0 +1,24 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  username: radek2r
+  password: ~
+  port: 5432
+  host: localhost
+  pool: 5
+  allow_concurrency: true
+  min_messages: error
+
+development:
+  <<: *default
+  database: hackyeah_development
+
+test:
+  <<: *default
+  database: hackyeah_test
+
+production:
+  <<: *default
+  database: hackyeah_production
+  username:
+  password:

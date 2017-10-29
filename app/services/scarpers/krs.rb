@@ -18,7 +18,7 @@ module Scarpers
     attr_reader :nip
 
     def clean_nip
-      @clean_nip ||= nip.to_s.gsub(/[^0-9]/, '')
+      @clean_nip ||= nip.to_s.gsub(/[^0-9]/, '').presence
     end
 
     def formatted_foundation_date

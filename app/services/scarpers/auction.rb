@@ -9,6 +9,15 @@ module Scarpers
     def perform
       return {} if auction_id.nil?
 
+      auctioneer_id = nil
+      document_data.xpath("//a").each do |link|
+        if link && link.attributes
+          value = link.attributes["href"].try(:value)
+          matched_value = String(value.to_s.match(/uzytkownik\/[\d]+\/oceny/)).presence
+          auctioneer_id = matched_value.gsub(/\D/, '') if matched_value.present?
+        end
+      end
+
       parameters_section = document_data.at_css('.attributes-container')
 
       return {} if parameters_section.nil?
@@ -43,7 +52,10 @@ module Scarpers
 
       # liczba opini o koncie
 
-      parameters_data
+      {
+        auctioneer_id: auctioneer_id,
+        auction_data: parameters_data
+      }
     end
 
     private

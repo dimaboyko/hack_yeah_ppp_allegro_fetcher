@@ -9,17 +9,21 @@ module External
         auctions = allegro_client.fetch_data
         return if auctions.nil?
 
-        auctions.each do |auction_data|
-          auctioneer_data = ::Scarpers::Auctioneer.perform(auction_data['userId'])
-          auction_data = ::Scarpers::Auction.perform(auction_data['itemId'])
+        puts "Auctions total: #{auctions.size}"
+
+        auctions.each do |auction|
+          auction_data = ::Scarpers::Auction.perform(auction['itemId'])
+          auctioneer_data = ::Scarpers::Auctioneer.perform(auction_data[:auctioneer_id])
           krs_data = ::Scarpers::Krs.perform(auctioneer_data['company_nip'])
+
+          puts "auctioneer_data: #{auctioneer_data}"
 
           hack_yeah_app_client.create_auction(
             {
-              auctioneer_id: auction_data['userId'],
+              auctioneer_id: auction_data[:auctioneer_id],
               auction_id: auction_data['itemId'],
               auctioneer_data: auctioneer_data.merge(krs_data),
-              auction_data: auction_data,
+              auction_data: auction_data[:auction_data],
               auction_provider: PROVIDER
             }
           )
