@@ -10,7 +10,7 @@ module External
         auctions = allegro_client.fetch_data
         return if auctions.nil?
 
-        auctions.in_groups_of(BATCH_SIZE) do |group|
+        auctions.in_groups_of(BATCH_SIZE, false) do |group|
           group.each do |auction|
             auction_data = ::Scarpers::Auction.perform(auction['itemId'])
             auctioneer_data = ::Scarpers::Auctioneer.perform(auction_data[:auctioneer_id])
