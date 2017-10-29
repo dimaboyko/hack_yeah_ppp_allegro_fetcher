@@ -3,7 +3,6 @@ module External
     class Fetcher
       extend ::Concerns::Performable
 
-      PROVIDER = 'allegro.pl'
       BATCH_SIZE = 100
 
       def perform

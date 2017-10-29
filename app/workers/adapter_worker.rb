@@ -1,6 +1,8 @@
 class AdapterWorker
   include Sidekiq::Worker
 
+  PROVIDER = 'allegro.pl'
+
   def perform(auction)
     auction_data = ::Scarpers::Auction.perform(auction['itemId'])
     auctioneer_data = ::Scarpers::Auctioneer.perform(auction_data[:auctioneer_id])
