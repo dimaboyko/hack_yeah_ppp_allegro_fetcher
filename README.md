@@ -3,8 +3,11 @@
 ## adres:
 http://hackyeahppp-allegro-fetcher.herokuapp.com/
 
-### consola:
+### consola ssh:
 heroku ps:exec
+
+### consola rails:
+heroku run rails console
 
 ### deploy:
 git push heroku master
