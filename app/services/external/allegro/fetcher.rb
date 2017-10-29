@@ -15,6 +15,12 @@ module External
           end
         end
       end
+
+      private
+
+      def allegro_client
+        @allegro_client ||= ::External::Allegro::Client.instance
+      end
     end
   end
 end

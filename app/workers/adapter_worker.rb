@@ -21,10 +21,6 @@ class AdapterWorker
 
   private
 
-  def allegro_client
-    @allegro_client ||= ::External::Allegro::Client.instance
-  end
-
   def hack_yeah_app_client
     @hack_yeah_app_client ||= ::External::HackYeahApp::Client.instance
   end
