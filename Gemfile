@@ -25,7 +25,11 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'excon'
 
+gem 'responders'
+
 gem 'nokogiri'
+
+gem 'a9n'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

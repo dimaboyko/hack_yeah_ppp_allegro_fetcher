@@ -1,0 +1,8 @@
+development: &development
+  api_key: '68e6a2b8272486f29be03c7d20bf8b06'
+
+test:
+  <<: *development
+
+production:
+  <<: *development
