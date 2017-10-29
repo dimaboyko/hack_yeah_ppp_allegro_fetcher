@@ -35,7 +35,13 @@ module Scarpers
         end
       end
 
-      parameters_data[:title] = document_data.at_css('h1.title').try(:children).first
+      parameters_data[:title] = sanitizer_html_from(
+        document_data.at_css('h1.title').try(:children).first
+      )
+
+      parameters_data[:price] = sanitizer_html_from(
+        document_data.at_css('#purchase-form .price').try(:children)
+      ).gsub(/[^0-9]/, '')
 
       # sciezka kategorii w postaci tablicy
       # parameters_data[:category_tree] = document_data.at_css('ol#breadcrumbs-list').map(&:children).map(&:to_s)
